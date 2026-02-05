@@ -1,5 +1,5 @@
 {
-  "name": "test-repo",
+  "name": "create-ipro-microfront",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -12,9 +12,6 @@
   "description": "",
   "devDependencies": {
     "parcel-bundler": "^1.12.5"
-  },
-  "dependencies": {
-    "rimraf": "^6.1.2"
   },
   "bin": {
     "create-ipro-microfront": "./generate-app.js"
