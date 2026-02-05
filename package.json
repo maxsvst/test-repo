@@ -17,6 +17,6 @@
     "rimraf": "^6.1.2"
   },
   "bin": {
-    "create-boilerplate": "./generate-app.js"
+    "create-ipro-microfront": "./generate-app.js"
   }
 }
