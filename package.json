@@ -1,0 +1,22 @@
+{
+  "name": "test-repo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.5"
+  },
+  "dependencies": {
+    "rimraf": "^6.1.2"
+  },
+  "bin": {
+    "create-boilerplate": "./generate-app.js"
+  }
+}
