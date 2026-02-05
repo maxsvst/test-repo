@@ -15,5 +15,8 @@
   },
   "bin": {
     "create-ipro-microfront": "./generate-app.js"
+  },
+  "dependencies": {
+    "rimraf": "^6.1.2"
   }
 }

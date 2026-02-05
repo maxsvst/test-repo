@@ -34,12 +34,16 @@ try {
 async function main() {
   try {
     console.log("Скачивание проекта...");
-    execSync(`git clone ${git_repo} ${projectPath}`);
+    execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
 
     process.chdir(projectPath);
 
     console.log("Установка зависимостей...");
     execSync("npm install");
+
+    console.log("Удаление папки .git...");
+    execSync("npx rimraf ./.git");
+
     // Нужно ли удалять папку bin для конечного пользователя?
     fs.rmdirSync(path.join(projectPath, "bin"), { recursive: true });
 
