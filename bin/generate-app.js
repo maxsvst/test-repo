@@ -2,7 +2,7 @@
 
 // Импорт необходимых зависимостей
 import { join } from "path";
-import { mkdirSync, rmSync } from "fs";
+import { existsSync, rmSync } from "fs";
 import { execSync } from "child_process";
 
 if (process.argv.length < 3) {
@@ -15,8 +15,8 @@ if (process.argv.length < 3) {
 const projectName = process.argv[2]; // Название проекта - ipro-catalog
 const currentPath = process.cwd(); // Текущая директория - Desktop/Projects
 const projectPath = join(currentPath, projectName); // Абсолютный путь - Desktop/Projects/ipro-catalog
-const binPath = path.join(projectPath, "bin"); // Путь к папке bin
-const gitFolderPath = path.join(projectPath, ".git"); // Путь к папке .git
+const gitFolderPath = join(projectPath, ".git"); // Путь к папке .git
+const binPath = join(projectPath, "bin"); // Путь к папке bin
 const git_repo = "https://github.com/maxsvst/test-repo.git";
 
 // Валидация имени проекта
@@ -44,14 +44,14 @@ async function main() {
     execSync("npm install");
 
     console.log("Удаление папки .git...");
-    if (fs.existsSync(gitFolderPath)) {
-      fs.rmSync(gitFolderPath, { recursive: true, force: true });
+    if (existsSync(gitFolderPath)) {
+      rmSync(gitFolderPath, { recursive: true, force: true });
       console.log("Папка .git удалена.");
     }
 
     console.log("Удаление папки bin...");
-    if (fs.existsSync(binPath)) {
-      fs.rmSync(binPath, { recursive: true, force: true });
+    if (existsSync(binPath)) {
+      rmSync(binPath, { recursive: true, force: true });
       console.log("Папка bin удалена.");
     }
 
