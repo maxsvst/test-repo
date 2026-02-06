@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 // Импорт необходимых зависимостей
-const { execSync } = require("child_process");
-const path = require("path");
-const fs = require("fs");
+import { join } from "path";
+import { mkdirSync, rmSync } from "fs";
+import { execSync } from "child_process";
 
 if (process.argv.length < 3) {
   console.log("Необходимо ввести имя приложения.");
@@ -14,12 +14,14 @@ if (process.argv.length < 3) {
 
 const projectName = process.argv[2]; // Название проекта - ipro-catalog
 const currentPath = process.cwd(); // Текущая директория - Desktop/Projects
-const projectPath = path.join(currentPath, projectName); // Абсолютный путь - Desktop/Projects/ipro-catalog
+const projectPath = join(currentPath, projectName); // Абсолютный путь - Desktop/Projects/ipro-catalog
+const binPath = path.join(projectPath, "bin"); // Путь к папке bin
+const gitFolderPath = path.join(projectPath, ".git"); // Путь к папке .git
 const git_repo = "https://github.com/maxsvst/test-repo.git";
 
 // Валидация имени проекта
 try {
-  fs.mkdirSync(projectPath); // Попытка создать директорию
+  mkdirSync(projectPath); // Попытка создать директорию
 } catch (err) {
   if (err.code === "EEXIST") {
     console.log(
@@ -42,14 +44,24 @@ async function main() {
     execSync("npm install");
 
     console.log("Удаление папки .git...");
-    execSync("npx rimraf ./.git");
+    if (fs.existsSync(gitFolderPath)) {
+      fs.rmSync(gitFolderPath, { recursive: true, force: true });
+      console.log("Папка .git удалена.");
+    }
 
-    // Нужно ли удалять папку bin для конечного пользователя?
-    fs.rmdirSync(path.join(projectPath, "bin"), { recursive: true });
+    console.log("Удаление папки bin...");
+    if (fs.existsSync(binPath)) {
+      fs.rmSync(binPath, { recursive: true, force: true });
+      console.log("Папка bin удалена.");
+    }
+
+    console.log("Инициализация нового репозитория Git...");
+    execSync("git init");
 
     console.log("Загрузка завершена!");
   } catch (err) {
-    console.log(err);
+    console.error("Произошла ошибка во время инициализации:", err.message);
+    process.exit(1);
   }
 }
 main();
