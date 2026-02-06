@@ -2,7 +2,7 @@
 
 // Импорт необходимых зависимостей
 import { join } from "path";
-import { existsSync, rmSync } from "fs";
+import { existsSync, mkdirSync, rmSync } from "fs";
 import { execSync } from "child_process";
 
 if (process.argv.length < 3) {
